@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 
 
 
@@ -7,6 +7,8 @@ function App() {
   const [num, setnum] = useState(false)
   const [char, setchar] = useState(false)
   const [pswd, setpswd] = useState("")
+
+  const pswdref = useRef(null)
 
   const pswdgen = useCallback( () => {
     let pass = ""
@@ -22,11 +24,14 @@ function App() {
 
     setpswd(pass)
 
-
-
   },
   
   [length, num, char, setpswd])
+
+  const copyclipboard = useCallback(() => {
+    pswdref.current?.select()
+    window.navigator.clipboard.writeText(pswd)
+  }, [pswd])
   
   useEffect(() =>{
     pswdgen()
@@ -40,8 +45,11 @@ function App() {
         value = {pswd}
         className = "outline-none bg-white w-full py-1 px-3"
         placeholder = "Password"
-        readOnly/>
-  <button className = "outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0">
+        readOnly
+        ref = {pswdref}
+        />
+  <button onClick = {copyclipboard}
+  className = "outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0">
     copy
   </button>
     
