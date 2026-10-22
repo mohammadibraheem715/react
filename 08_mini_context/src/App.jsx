@@ -1,12 +1,15 @@
-import usercontextprovider from './context/usercontextprovider'
+import './App.css'
+import Login from './components/Login'
+import Profile from './components/Profile'
+import UserContextProvider from './context/UserContextProvider'
 
 function App() {
- 
-
   return (
-    <usercontextprovider>
-    <h1> Hello</h1>
-    </usercontextprovider>
+    <UserContextProvider>
+      <h1>React Context API</h1>
+      <Login />
+      <Profile />
+    </UserContextProvider>
   )
 }
 
